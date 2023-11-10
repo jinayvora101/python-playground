@@ -1,4 +1,5 @@
 from numpy import array, full, array_equal, diag
+from os import system
 
 
 
@@ -29,9 +30,11 @@ def decodeInput(player):
 
 def printBoard():
 
+    system("clear")
+
     string = [" "+" | ".join(i)+" " for i in board]
-    sep = "\n---+---+---\n"
-    string = sep.join(string).replace("_", " ")
+    string = "\n---+---+---\n".join(string).replace("_", " ")
+
     print(string)
 
 
@@ -50,22 +53,27 @@ def checkStatus():
     for i in range(3):
 
         if array_equal(board[i, :], xs) or array_equal(board[:, i], xs):
+            printBoard()
             print("Player x won")
             return "break"
 
         elif array_equal(board[i, :], os) or array_equal(board[:, i], os):
+            printBoard()
             print("Player o won")
             return "break"
 
     if array_equal(diag(board), xs) or array_equal(diag(board[::-1]), xs):
+        printBoard()
         print("Player x won")
         return "break"
 
     elif array_equal(diag(board), os) or array_equal(diag(board[::-1]), os):
+        printBoard()
         print("Player o won")
         return "break"
 
     if "_" not in board.flatten():
+        printBoard()
         print("Game Tied")
         return "break"
 
@@ -89,9 +97,7 @@ while True:
 
     addTile("x", inp)
 
-    if checkStatus() == "break":
-        printBoard()
-        break
+    if checkStatus() == "break": break
 
 
     """ Player o turn """
@@ -108,8 +114,6 @@ while True:
 
     status = checkStatus()
 
-    if checkStatus() == "break":
-        printBoard()
-        break
+    if checkStatus() == "break": break
 
 
