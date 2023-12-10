@@ -1,0 +1,8 @@
+{
+    "BSE": ["ANUHPHR", "EVERFIN", "MIDEASTP", "PENTA6", "PRECISION", "SBNT", "SPSL", "VISHALEXPO", "GOODYEAR"],
+    "Index": ["BSESN", "NSEI"],
+
+    "workbook-path": "output.xlsx",
+    "main": "main",
+    "purchase-history": "purchase-history"
+}
