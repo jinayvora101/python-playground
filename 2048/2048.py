@@ -161,7 +161,7 @@ while endGameCheck():
         elif inp == "undo":
 
             board = prevBoard.copy()
-            break;
+            break
 
         elif inp == "exit":
 
