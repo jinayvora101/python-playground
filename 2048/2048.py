@@ -1,8 +1,8 @@
-from random import choice, shuffle
+from os import system
 from itertools import product, chain
+from random import choice, shuffle
 from numpy import full, array, array_equal
 from readchar import readkey, key
-from os import system
 
 
 
@@ -10,7 +10,8 @@ def createNewGame():
 
     global board
     board = full((4, 4), None)
-    addTile(); addTile()
+    addTile()
+    addTile()
 
 
 
@@ -18,9 +19,9 @@ def addTile():
 
     itr = list(product(range(4), range(4)))
     shuffle(itr)
-    
+
     for i, j in itr:
-        if board[i, j] == None:
+        if board[i, j] is None:
             board[i, j] = choice([2, 2, 4, 4, 4])
             break
 
@@ -45,7 +46,7 @@ def decodeInput():
 
     elif x == "z":
         return "undo"
-    
+
     else:
         print("retry inputting...")
         return decodeInput()
@@ -73,15 +74,15 @@ def mergeRow(tmp):
     tmp = tmp.tolist()
     ptr1, ptr2 = 0, 1
 
-    while ptr1<3 and ptr2<=3:
+    while (ptr1 < 3) and (ptr2 <= 3):
 
-        if tmp[ptr1] == None:
+        if tmp[ptr1] is None:
             ptr1 += 1
             ptr2 = ptr1+1
 
-        elif tmp[ptr2] == None:
+        elif tmp[ptr2] is None:
             ptr2 += 1
-        
+
         elif tmp[ptr1] == tmp[ptr2]:
             tmp[ptr1] *= 2
             tmp[ptr2] = None
@@ -100,16 +101,16 @@ def mergeRow(tmp):
 
 
 def endGameCheck():
-    
+
     global board
 
     flat = list(chain(*board))
-    
+
     if 2048 in flat:
         print("You Won!\n========")
 
     elif None in flat: return True
-    
+
     else: return False
 
 
@@ -127,8 +128,8 @@ def printBoard():
         print(" | ", end="")
 
         for j in i:
-            print(str(j).rjust(4, " ") if j != None else "    ", end=" | ")
-        
+            print(str(j).rjust(4, " ") if j is not None else "    ", end=" | ")
+
         print("\n "+"".join(["-"]*29))
 
 
@@ -143,18 +144,18 @@ while endGameCheck():
     if inp != "undo": addTile()
 
     printBoard()
-    
+
     inp = decodeInput()
 
     while True:
-        
+
         if inp in [2, 4, 6, 8]:
 
             prevBoard = board.copy()
             pushTiles(inp)
 
             if not array_equal(prevBoard, board): break
-            
+
             print("can't push in that direction")
             inp = decodeInput()
 
@@ -167,7 +168,7 @@ while endGameCheck():
 
             from sys import exit
             exit()
-            
+
         else:
             inp = decodeInput()
 
